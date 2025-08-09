@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kingsday Amsterdam 2026 – Lea • Tobias • Neele • Jonas</title>
+  <meta name="description" content="Interaktive Onepager-Seite für unseren Kurztrip zum Kingsday in Amsterdam (26.–28.04.2026). Unterkünfte, Parken, Tipps, Party & To‑dos." />
+  <meta name="color-scheme" content="light dark">
+  <style>
+    /* ===== Theme & Tokens ===== */
+    :root{
+      --orange:#FF6A00; --orange-2:#FF8A00; /* Brand accent */
+      --navy:#001737;   --royal:#21468B;     /* Dutch royal blue */
+      --gold:#FFC300;
+
+      --bg:#ffffff; --text:#0b1220;          /* Base */
+      --muted:#475569; --subtle:#64748B;     /* Secondary text */
+      --card:#ffffff; --card-border:rgba(2,6,23,.08);
+      --shadow:0 10px 30px rgba(0,0,0,.08);
+      --radius:18px;
+
+      /* Headings: ensure strong contrast in both modes */
+      --head:#0b1220;  /* light */
+      --head-sub:#1f2a44;
+      --link:#1f3a8a;
+      --focus: #7dd3fc;
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg:#0b1020; --text:#e5e7eb;
+        --card:#0f172a; --card-border:rgba(148,163,184,.18);
+        --shadow:0 10px 30px rgba(0,0,0,.45);
+        --head:#f8fafc; --head-sub:#e2e8f0; --link:#93c5fd;
+      }
+      body{background:var(--bg);}
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0; padding:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif; color:var(--text); background:var(--bg);}
+    a{color:var(--link); text-decoration:none}
+    a:hover{text-decoration:underline}
+    :focus-visible{outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 8px;}
+
+    /* ===== Header / Nav ===== */
+    header{position:sticky; top:0; z-index:50; backdrop-filter:saturate(1.2) blur(8px);
+      background:color-mix(in srgb, var(--bg) 88%, transparent);
+      border-bottom:1px solid var(--card-border)}
+    .container{max-width:1100px; margin:0 auto; padding:0 18px}
+    .nav{display:flex; align-items:center; justify-content:space-between; gap:18px; height:68px}
+    .nav a{padding:10px 12px; border-radius:12px; font-weight:700; color:var(--head); opacity:.9}
+    .nav a:hover{background:color-mix(in srgb, var(--orange) 16%, transparent); text-decoration:none; opacity:1}
+    .logo{display:flex; align-items:center; gap:12px; color:var(--head)}
+    .logo svg{height:36px}
+
+    /* ===== Hero ===== */
+    .badge{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px;
+      background:linear-gradient(135deg, var(--orange), var(--orange-2)); color:white; font-weight:800; box-shadow:var(--shadow)}
+    .hero{padding:56px 0 28px; background:linear-gradient(180deg, color-mix(in srgb, var(--orange) 10%, transparent), transparent)}
+    h1{font-size: clamp(34px, 5.8vw, 56px); line-height:1.06; margin:14px 0 12px; color:var(--head); letter-spacing:.2px;
+      text-wrap:balance; font-weight:900}
+    .h1-sub{margin: 6px 0 0; font-size: clamp(18px, 2.2vw, 20px); color:var(--subtle)}
+    p.lead{font-size:clamp(17px, 2vw, 19px); color:var(--muted)}
+
+    /* ===== Chips / Names ===== */
+    .names{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px}
+    .name-pill{padding:8px 12px; border-radius:999px; background:linear-gradient(135deg, #fff, #FFE6D1); background:linear-gradient(135deg, #21468B, #3b82f6); color:white;
+      border:1px solid rgba(255,106,0,.35); color:var(--head); font-weight:800}
+
+    /* ===== Buttons ===== */
+    .actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:16px}
+    .btn{--bg:var(--navy); display:inline-flex; align-items:center; gap:10px; padding:12px 16px;
+      border-radius:14px; background:var(--bg); color:white; font-weight:800; border:0; cursor:pointer; box-shadow:var(--shadow); transition: transform .08s ease}
+    .btn:active{transform: translateY(1px)}
+    .btn.secondary{--bg:#ffffff; background:linear-gradient(135deg, #21468B, #3b82f6); color:#fff; border:1px solid var(--card-border)}
+    .btn.orange{--bg:var(--orange); background:linear-gradient(135deg, var(--orange), var(--orange-2)); color:#fff}
+    .btn:hover{text-decoration:none; filter:saturate(1.03)}
+
+    section{padding:40px 0}
+    .grid{display:grid; gap:18px}
+    @media(min-width:860px){.grid-2{grid-template-columns:1fr 1fr}.grid-3{grid-template-columns:repeat(3,1fr)}}
+
+    /* ===== Cards ===== */
+    .card{background:var(--card); border-radius:var(--radius); padding:20px; box-shadow:var(--shadow); border:1px solid var(--card-border)}
+    .card:hover{outline: 1px solid color-mix(in srgb, var(--orange) 35%, transparent)}
+
+    /* ===== Headings (improved readability + visual rhythm) ===== */
+    h2{margin:0 0 12px; font-size:clamp(22px,3.5vw,30px); color:var(--head); letter-spacing:.2px; font-weight:900; line-height:1.2; position:relative}
+    h2:is(+ p, + .small){margin-top:-6px}
+    h2::after{
+      content:""; display:block; height:3px; width:72px; margin-top:10px; border-radius:999px;
+      background:linear-gradient(90deg, var(--orange), var(--orange-2));
+    }
+    h3{margin:0 0 6px; font-size:19px; color:var(--head-sub); font-weight:800}
+
+    .tag{display:inline-block; padding:4px 10px; border-radius:999px; background:rgba(255,106,0,.12); color:var(--orange); font-weight:800; font-size:12px}
+    .list{margin:0; padding-left:18px}
+    .list li{margin:6px 0}
+    details{border-radius:14px; padding:12px 14px; background:color-mix(in srgb, var(--royal) 7%, var(--bg)); border:1px solid color-mix(in srgb, var(--royal) 22%, transparent)}
+    details summary{cursor:pointer; font-weight:900; color:var(--head)}
+
+    .pillbar{display:flex; gap:10px; flex-wrap:wrap}
+    .pill{padding:8px 12px; border-radius:999px; background:rgba(0,0,0,.06)}
+
+    iframe.map{width:100%; height:420px; border:0; border-radius:14px}
+    table{width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border-radius:14px; box-shadow:var(--shadow)}
+    th, td{padding:12px 14px; border-bottom:1px solid var(--card-border)}
+    th{background:color-mix(in srgb, var(--orange) 12%, var(--bg)); text-align:left; color:var(--head)}
+    tr:last-child td{border-bottom:0}
+
+    footer{padding:30px 0 80px; color:var(--muted); text-align:center}
+    .small{font-size:12px; color:var(--muted)}
+
+    .fab-share{position:fixed; right:18px; bottom:18px; z-index:60; padding:14px 16px; border-radius:999px; background:linear-gradient(135deg, var(--orange), var(--orange-2)); color:#fff; border:0; box-shadow:var(--shadow); font-weight:800}
+
+    /* Reduce motion for users who prefer it */
+    @media (prefers-reduced-motion: reduce){
+      *{scroll-behavior:auto !important; transition:none !important}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="logo" aria-label="Kingsday Amsterdam Logo">
+        <svg viewBox="0 0 280 180" aria-hidden="true">
+          <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FF6A00"/><stop offset="100%" stop-color="#FF8A00"/></linearGradient></defs>
+          <path d="M0,120 L40,40 L80,120 L120,60 L160,120 L200,80 L240,120 L240,160 L0,160 Z" fill="url(#g)" stroke="#001B44" stroke-width="6" stroke-linejoin="round"/>
+          <circle cx="40" cy="40" r="8" fill="#FFC300" stroke="#001B44" stroke-width="4"/><circle cx="120" cy="60" r="8" fill="#FFC300" stroke="#001B44" stroke-width="4"/><circle cx="200" cy="80" r="8" fill="#FFC300" stroke="#001B44" stroke-width="4"/>
+        </svg>
+        <strong>Kingsday Amsterdam</strong>
+      </div>
+      <nav class="pillbar" aria-label="Hauptnavigation">
+        <a href="#unterkuenfte">Unterkunft</a>
+        <a href="#anreise">Anreise</a>
+        <a href="#tipps">Tipps</a>
+        <a href="#party">Party</a>
+        <a href="#todos">To‑dos</a>
+        <button class="btn orange" id="shareBtn" type="button" title="Seite teilen">Teilen</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container hero">
+      <span class="badge">26.–28. April 2026</span>
+      <h1>Kurztrip zum Kingsday in Amsterdam</h1>
+      <p class="h1-sub">Alles Wichtige kompakt: Unterkunft, Parken, Party & praktische Tipps.</p>
+      <p class="lead">Roadtrip mit <span class="name-pill">Lea</span>, <span class="name-pill">Tobias</span>, <span class="name-pill">Neele</span> und <span class="name-pill">Jonas</span> – gebündelt und teilbar.</p>
+      <div class="actions">
+        <a class="btn orange" href="#unterkuenfte">Unterkünfte ansehen</a>
+        <a class="btn secondary" href="#anreise">Parken & Anreise</a>
+      </div>
+    </div>
+
+    <section id="unterkuenfte">
+      <div class="container grid grid-2">
+        <div class="card">
+          <h2>Unterkunft finden</h2>
+          <p>Direkt zu den Suchen mit unseren Daten (4 Personen, 26.–28.04.2026). Filtert gern nach „Gesamte Unterkunft“, Bewertungen und flexibler Stornierung.</p>
+          <div class="grid grid-2">
+            <a class="btn orange" target="_blank" rel="noopener" href="https://www.airbnb.de/s/Amsterdam--Niederlande/homes?checkin=2026-04-26&checkout=2026-04-28&adults=4&place_id=ChIJVXealLU_xkcRja_At0z9AGY">Airbnb öffnen</a>
+            <a class="btn" target="_blank" rel="noopener" href="https://www.booking.com/searchresults.html?ss=Amsterdam&checkin=2026-04-26&checkout=2026-04-28&group_adults=4&no_rooms=1">Booking öffnen</a>
+          </div>
+          <details style="margin-top:12px">
+            <summary>Tipps zur Lage & Preis</summary>
+            <ul class="list">
+              <li><strong>Zentrum</strong> = teurer, fußläufig. Alternativ: <em>Sloterdijk</em> / <em>Zeeburg</em> mit ÖPNV.</li>
+              <li><strong>Kingsday‑Hotspot:</strong> Nähe Jordaan, Neun Straßen, Vondelpark.</li>
+              <li><strong>Früh buchen!</strong> Kingsday ist sehr gefragt.</li>
+            </ul>
+          </details>
+        </div>
+        <div class="card">
+          <h2>Amsterdam Karte (Google Maps)</h2>
+          <p class="small">Hinweis: Diese Karte wird als Google‑Maps‑Embed geladen. Der Routen‑Button unten startet die Navigation in Google Maps.</p>
+          <iframe title="Amsterdam Map" class="map" loading="lazy" src="https://www.google.com/maps?q=Amsterdam&output=embed" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+          <div class="actions" style="margin-top:12px">
+            <a class="btn secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Amsterdam">Route nach Amsterdam</a>
+            <a class="btn secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Supermarkt+Amsterdam">Supermärkte</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="anreise">
+      <div class="container grid grid-3">
+        <div class="card">
+          <h2>Anreise & Parken (Auto)</h2>
+          <p>Wir kommen mit dem Auto – P+R spart Zeit & Geld. Früh da sein, Tickets digital bereit halten.</p>
+          <ul class="list">
+            <li><span class="tag">Tipp</span> Park & Ride + Metro/Tram ins Zentrum</li>
+            <li>Höhenbegrenzungen der Parkhäuser beachten</li>
+            <li>Im Zentrum viel gesperrt/überfüllt zu Kingsday</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Beliebte Parkoptionen</h3>
+          <div class="grid">
+            <a class="btn secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=P%2BR%20Zeeburg%2C%20Amsterdam">P+R Zeeburg – Route</a>
+            <a class="btn secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Amsterdam%20Sloterdijk">P+R Sloterdijk – Route</a>
+            <a class="btn secondary" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&destination=Oosterdok%20Parking%2C%20Amsterdam">Oosterdok Parking – Route</a>
+          </div>
+          <details style="margin-top:12px">
+            <summary>P+R Hinweise</summary>
+            <ul class="list">
+              <li>Tarife & Öffnungszeiten vorher prüfen.</li>
+              <li>ÖPNV‑Ticket vom P+R ist oft erforderlich für den P+R‑Preis.</li>
+            </ul>
+          </details>
+        </div>
+        <div class="card">
+          <h3>ÖPNV & Apps</h3>
+          <ul class="list">
+            <li>GVB / 9292 für Fahrpläne & Tickets</li>
+            <li>Taxi/Sharing: Uber, Bolt, Tier/Dott (E‑Scooter)</li>
+            <li>Download offline Karten (Google Maps)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="tipps">
+      <div class="container grid grid-3">
+        <div class="card">
+          <h2>Quick‑Tipps</h2>
+          <ul class="list">
+            <li>Orange Outfit / Accessoires – Stimmung!</li>
+            <li>Wetter: Regenjacke, Layers (April!).</li>
+            <li>Cashless: Karte/Phone‑Pay reicht meist.</li>
+            <li>Powerbank, Ohrenstöpsel, Pflaster.</li>
+            <li>Trinkwasser auffüllen (leere Flasche mitnehmen).</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2>Mood & Orte</h2>
+          <ul class="list">
+            <li>Jordaan & Neun Straßen – Bummeln, Flohmärkte</li>
+            <li>Vondelpark – Picknickzone, Live‑Vibes</li>
+            <li>Grachten – Bootstour (vorab buchen)</li>
+            <li>Museen – Rijksmuseum / Van Gogh (Timeslots)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2>Timeline (Vorschlag)</h2>
+          <table>
+            <thead><tr><th>Tag</th><th>Plan</th></tr></thead>
+            <tbody>
+              <tr><td>So 26.04.</td><td>Anreise • Check‑in • Dinner • Warm‑up</td></tr>
+              <tr><td>Mo 27.04.</td><td>Kingsday! • Stadt, Flohmarkt • Party am Abend</td></tr>
+              <tr><td>Di 28.04.</td><td>Easy Frühstück • Check‑out • Heimfahrt</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="party">
+      <div class="container grid grid-2">
+        <div class="card">
+          <h2>Techno: Verknipt & mehr</h2>
+          <p>Tickets rechtzeitig sichern – Kingsday‑Events sind beliebt. Prüft Timetables & Locations kurz vorher.</p>
+          <div class="grid">
+            <a class="btn orange" target="_blank" rel="noopener" href="https://www.verknipt.org/">Verknipt – Website</a>
+            <a class="btn" target="_blank" rel="noopener" href="https://www.awakenings.com/">Awakenings</a>
+            <a class="btn" target="_blank" rel="noopener" href="https://www.shelteramsterdam.nl/">Shelter</a>
+            <a class="btn" target="_blank" rel="noopener" href="https://radionamsterdam.nl/">Radion</a>
+            <a class="btn" target="_blank" rel="noopener" href="https://thuishaven.nl/">Thuishaven</a>
+          </div>
+        </div>
+        <div class="card">
+          <h2>Alternativen (wenn’s zu voll ist)</h2>
+          <ul class="list">
+            <li>Open‑Air Bühnen & Straßenmusik (einfach treiben lassen)</li>
+            <li>A’DAM Lookout (Skyline, ggf. Wartezeit)</li>
+            <li>Foodhallen – Snacks & Drinks</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="todos">
+      <div class="container grid grid-2">
+        <div class="card">
+          <h2>To‑dos</h2>
+          <ul id="todoList" class="list" aria-live="polite"></ul>
+          <div class="actions">
+            <input id="todoInput" type="text" placeholder="Neuen To‑do‑Punkt hinzufügen…" style="flex:1; padding:10px 12px; border-radius:10px; border:1px solid var(--card-border)">
+            <button class="btn" id="addTodo">Hinzufügen</button>
+            <button class="btn secondary" id="clearDone">Erledigte löschen</button>
+          </div>
+          <details style="margin-top:12px">
+            <summary>Empfohlene Punkte</summary>
+            <ul class="list">
+              <li>Unterkunft fixen</li>
+              <li>Event‑Tickets sichern</li>
+              <li>Parkoption wählen</li>
+              <li>Packliste checken</li>
+              <li>Gemeinsame Kasse anlegen</li>
+            </ul>
+          </details>
+        </div>
+        <div class="card">
+          <h2>Packliste</h2>
+          <table id="packTable" aria-describedby="packHint">
+            <thead><tr><th>Kategorie</th><th>Item</th><th>Check</th></tr></thead>
+            <tbody></tbody>
+          </table>
+          <p id="packHint" class="small">Deine Häkchen werden lokal im Browser gespeichert.</p>
+          <div class="actions"><button class="btn secondary" id="resetPack">Häkchen zurücksetzen</button></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="card">
+          <h2>Kosten‑Tracker (einfach)</h2>
+          <table id="costTable">
+            <thead><tr><th>Posten</th><th>Betrag (€)</th><th>Wer?</th><th>Aktion</th></tr></thead>
+            <tbody></tbody>
+          </table>
+          <div class="actions" style="margin-top:10px">
+            <input id="costName" placeholder="z.B. Parken" style="padding:10px 12px; border-radius:10px; border:1px solid var(--card-border)">
+            <input id="costValue" type="number" step="0.01" placeholder="0,00" style="padding:10px 12px; border-radius:10px; border:1px solid var(--card-border)">
+            <select id="costWho" style="padding:10px 12px; border-radius:10px; border:1px solid var(--card-border)">
+              <option>Lea</option><option>Tobias</option><option>Neele</option><option>Jonas</option>
+            </select>
+            <button class="btn" id="addCost">Hinzufügen</button>
+            <button class="btn secondary" id="clearCosts">Zurücksetzen</button>
+          </div>
+          <p class="small" id="costSum">Summe: 0,00 €</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Made for Kingsday 2026 • Lea • Tobias • Neele • Jonas</p>
+      <p class="small">Farben: Koningsoranje, Royal Blue, Navy. Diese Seite ist ein statischer Onepager, optimiert fürs Teilen als Datei oder gehostete Seite.</p>
+    </div>
+  </footer>
+
+  <button class="fab-share" id="fabShare" title="Seite teilen">Teilen</button>
+
+  <script>
+    // Share buttons (Web Share API + Clipboard)
+    async function sharePage(trigger){
+      const url = location.href; const title = document.title;
+      if(navigator.share){ try{ await navigator.share({title, url}); return; }catch(e){} }
+      if(navigator.clipboard){
+        await navigator.clipboard.writeText(url);
+        const orig = trigger.textContent;
+        trigger.textContent = 'Link kopiert ✔';
+        setTimeout(()=> trigger.textContent = orig, 1600);
+      } else { alert('Link: '+url); }
+    }
+    document.getElementById('shareBtn')?.addEventListener('click', (e)=>sharePage(e.currentTarget));
+    document.getElementById('fabShare')?.addEventListener('click', (e)=>sharePage(e.currentTarget));
+
+    // ---- To‑dos with localStorage ----
+    const todoKey = 'kingsday_todos_v1';
+    const listEl = document.getElementById('todoList');
+    const inputEl = document.getElementById('todoInput');
+    const addBtn = document.getElementById('addTodo');
+    const clearDoneBtn = document.getElementById('clearDone');
+    let todos = JSON.parse(localStorage.getItem(todoKey) || '[]');
+    function renderTodos(){
+      listEl.innerHTML = '';
+      todos.forEach((t, i)=>{
+        const li = document.createElement('li'); li.style.listStyle = 'none'; li.style.margin = '6px 0';
+        li.innerHTML = `<label style="display:flex; gap:10px; align-items:center"><input type="checkbox" ${t.done?'checked':''} data-i="${i}"><span ${t.done?'style="text-decoration:line-through; color:var(--muted)"':''}>${t.text}</span><button data-del="${i}" class="btn secondary" style="padding:6px 10px; font-weight:600">Löschen</button></label>`;
+        listEl.appendChild(li);
+      });
+    }
+    function saveTodos(){ localStorage.setItem(todoKey, JSON.stringify(todos)); }
+    renderTodos();
+    addBtn?.addEventListener('click', ()=>{
+      const v = (inputEl.value||'').trim(); if(!v) return; todos.push({text:v, done:false}); inputEl.value=''; saveTodos(); renderTodos();
+    });
+    listEl?.addEventListener('change', (e)=>{
+      if(e.target.matches('input[type="checkbox"]')){ const i = +e.target.dataset.i; todos[i].done = e.target.checked; saveTodos(); renderTodos(); }
+    });
+    listEl?.addEventListener('click', (e)=>{
+      const btn = e.target.closest('button[data-del]'); if(btn){ const i = +btn.dataset.del; todos.splice(i,1); saveTodos(); renderTodos(); }
+    });
+    clearDoneBtn?.addEventListener('click', ()=>{ todos = todos.filter(t=>!t.done); saveTodos(); renderTodos(); });
+
+    // ---- Packliste ----
+    const packKey = 'kingsday_pack_v1';
+    const packData = [
+      ['Dokumente','Personalausweis/Reisepass'],
+      ['Dokumente','Führerschein + Fahrzeugschein'],
+      ['Tickets','Event‑Tickets (Verknipt etc.)'],
+      ['Finanzen','Karte + etwas Bargeld'],
+      ['Kleidung','Orange Outfit / Accessoires'],
+      ['Kleidung','Bequeme Schuhe'],
+      ['Wetter','Regenjacke / Cape'],
+      ['Wetter','Warme Schichten'],
+      ['Tech','Powerbank + Kabel'],
+      ['Tech','Handy / Kopfhörer'],
+      ['Gesundheit','Pflaster/Blasenpflaster'],
+      ['Hygiene','Feuchttücher/Desinfektion'],
+      ['Sonstiges','Ohrenstöpsel'],
+      ['Sonstiges','Wasserflasche (leer)']
+    ];
+    const packTableBody = document.querySelector('#packTable tbody');
+    const packState = JSON.parse(localStorage.getItem(packKey) || '{}');
+    function renderPack(){
+      packTableBody.innerHTML = '';
+      packData.forEach((row, idx)=>{
+        const tr = document.createElement('tr');
+        const id = 'p'+idx;
+        tr.innerHTML = `<td>${row[0]}</td><td>${row[1]}</td><td style="width:80px"><input type="checkbox" data-pid="${id}" ${packState[id]?'checked':''}></td>`;
+        packTableBody.appendChild(tr);
+      });
+    }
+    renderPack();
+    packTableBody.addEventListener('change', (e)=>{
+      if(e.target.matches('input[type="checkbox"]')){ const id = e.target.dataset.pid; packState[id] = e.target.checked; localStorage.setItem(packKey, JSON.stringify(packState)); }
+    });
+    document.getElementById('resetPack')?.addEventListener('click', ()=>{ localStorage.removeItem(packKey); location.reload(); });
+
+    // ---- Kosten‑Tracker ----
+    const costKey = 'kingsday_cost_v1';
+    const costBody = document.querySelector('#costTable tbody');
+    const costSum = document.getElementById('costSum');
+    const costName = document.getElementById('costName');
+    const costValue = document.getElementById('costValue');
+    const costWho = document.getElementById('costWho');
+    const addCost = document.getElementById('addCost');
+    const clearCosts = document.getElementById('clearCosts');
+    let costs = JSON.parse(localStorage.getItem(costKey) || '[]');
+    function fmt(n){ return (n||0).toLocaleString('de-DE', {minimumFractionDigits:2, maximumFractionDigits:2}); }
+    function renderCosts(){
+      costBody.innerHTML='';
+      let sum=0;
+      costs.forEach((c, i)=>{
+        sum += +c.val;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${c.name}</td><td>${fmt(c.val)}</td><td>${c.who}</td><td><button class='btn secondary' data-del='${i}' style='padding:6px 10px'>Entfernen</button></td>`;
+        costBody.appendChild(tr);
+      });
+      costSum.textContent = 'Summe: ' + fmt(sum) + ' €';
+    }
+    renderCosts();
+    addCost.addEventListener('click', ()=>{
+      const name = (costName.value||'').trim();
+      const val = parseFloat((costValue.value||'').toString().replace(',', '.'));
+      if(!name || isNaN(val)) return;
+      costs.push({name, val, who: costWho.value});
+      costName.value=''; costValue.value='';
+      localStorage.setItem(costKey, JSON.stringify(costs)); renderCosts();
+    });
+    costBody.addEventListener('click', (e)=>{
+      const btn = e.target.closest('button[data-del]');
+      if(btn){ const i = +btn.dataset.del; costs.splice(i,1); localStorage.setItem(costKey, JSON.stringify(costs)); renderCosts(); }
+    });
+    clearCosts.addEventListener('click', ()=>{ costs=[]; localStorage.removeItem(costKey); renderCosts(); });
+  </script>
+</body>
+</html>
